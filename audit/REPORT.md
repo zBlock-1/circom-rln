@@ -7,18 +7,42 @@ None beyond the code repositories.
 **Auditors:**
 
  - Chen Wen Kang
+ - Vincent Owen
 
 ## Table of Contents <!-- omit in toc -->
 
-TODO_Insert_TOC
+- [Review Summary](#review-summary)
+- [Scope](#scope)
+- [Code Evaluation Matrix](#code-evaluation-matrix)
+- [Findings Explanation](#findings-explanation)
+- [Critical Findings](#critical-findings)
+- [High Findings](#high-findings)
+- [Medium Findings](#medium-findings)
+- [Low Findings](#low-findings)
+  - [1. Low - Missing non-zero check and range check for public input `x`](#1-low---missing-non-zero-check-and-range-check-for-public-input-x)
+    - [Technical Details](#technical-details)
+    - [Impact](#impact)
+    - [Recommendation](#recommendation)
+- [Informational Findings](#informational-findings)
+  - [1. Informational - Unused Public Inputs Optimized Out](#1-informational---unused-public-inputs-optimized-out)
+    - [Technical Details](#technical-details-1)
+    - [Impact](#impact-1)
+    - [Recommendation](#recommendation-1)
+  - [2. Informational - Misleading Naming Convention for Utility Circuits](#2-informational---misleading-naming-convention-for-utility-circuits)
+    - [Technical Details](#technical-details-2)
+    - [Impact](#impact-2)
+    - [Recommendation](#recommendation-2)
+    - [Developer Response](#developer-response)
+- [Final remarks](#final-remarks)
+
 
 ## Review Summary
 
-**TODO_protocol_name**
+**RLN**
 
-TODO_protocol_name provides TODO_explain_protocol_purpose.
+Rate limiting nullifier (RLN) is a construct based on zero-knowledge proofs that provides an anonymous rate-limited signaling/messaging framework suitable for decentralized (and centralized) environments. Anonymity refers to the unlinkability of messages to their owner.
 
-The contracts of the TODO_protocol_name [Repo](TODO_github_URL) were reviewed over TODO_days_total days. The code review was performed by TODO_number_of_auditors auditors between TODO_start_date and TODO_finish_date, 2023. The repository was under active development during the review, but the review was limited to the latest commit at the start of the review. This was commit [TODO_hash](TODO_github_URL_to_hash) for the TODO_protocol_name repo.
+RLN [Repo](https://github.com/Rate-Limiting-Nullifier/circom-rln) were reviewed over 4 days. The code review was performed by 2 auditors between 11th June and 15th June, 2023. The review was limited to the latest commit at the start of the review. This was commit [37073131b9c5910228ad6bdf0fc50080e507166a](https://github.com/Rate-Limiting-Nullifier/circom-rln/commit/37073131b9c5910228ad6bdf0fc50080e507166a) for the RLN repo.
 
 ## Scope
 
@@ -28,11 +52,9 @@ The scope of the review consisted of the following circuits at the specific comm
 - `utils.circom`
 - `withdraw.circom`
 
-After the findings were presented to the TODO_protocol_name team, fixes were made and included in several PRs.
-
 This review is a code review to identify potential vulnerabilities in the code. The reviewers did not investigate security practices or operational security and assumed that privileged accounts could be trusted. The reviewers did not evaluate the security of the code relative to a standard or specification. The review may not have identified all potential attack vectors or areas of vulnerability.
 
-The auditors make no warranties regarding the security of the code and do not warrant that the code is free from defects. The auditors do not represent nor imply to third parties that the code has been audited nor that the code is free from defects. By deploying or using the code, TODO_protocol_name and users of the contracts agree to use the code at their own risk.
+The auditors make no warranties regarding the security of the code and do not warrant that the code is free from defects. The auditors do not represent nor imply to third parties that the code has been audited nor that the code is free from defects. By deploying or using the code, RLN and users of the contracts agree to use the code at their own risk.
 
 
 Code Evaluation Matrix
@@ -40,14 +62,11 @@ Code Evaluation Matrix
 
 | Category                 | Mark    | Description |
 | ------------------------ | ------- | ----------- |
-| Access Control           | Good | TODO |
-| Mathematics              | Good | TODO |
-| Complexity               | Good | TODO |
-| Libraries                | Average | TODO |
-| Decentralization         | Good | TODO |
-| Code stability           | Good    | TODO |
-| Documentation            | Average | TODO |
-| Monitoring               | Average | TODO |
+| Mathematics              | Good | - |
+| Complexity               | Good | - |
+| Libraries                | Good | - |
+| Code stability           | Good    | - |
+| Documentation            | Average | - |
 | Testing and verification | Low | More test recommended  |
 
 ## Findings Explanation
@@ -55,8 +74,6 @@ Code Evaluation Matrix
 Findings are broken down into sections by their respective impact:
  - Critical, High, Medium, Low impact
      - These are findings that range from attacks that may cause loss of funds, impact control/ownership of the contracts, or cause any unintended consequences/actions that are outside the scope of the requirements
- - Gas savings
-     - Findings that can improve the gas efficiency of the contracts
  - Informational
      - Findings including recommendations and best practices
 
@@ -98,24 +115,6 @@ There are 2 possible solutions to this issue:
 
 1. Perform the hashing of `x` in the circuit.
 2. Add a check in the circuit to ensure that `x` is non-zero.
-
-## Gas Savings Findings
-
-### 1. Gas - TODO_Title
-
-TODO
-
-#### Technical Details
-
-TODO
-
-#### Impact
-
-Gas savings.
-
-#### Recommendation
-
-TODO
 
 ## Informational Findings
 
@@ -159,4 +158,4 @@ None
 
 ## Final remarks
 
-TODO
+The circuits are well written and documented. There's no critical issues, only some low severity issues that can be easily fixed. 
