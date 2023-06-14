@@ -6,7 +6,7 @@ None beyond the code repositories.
 
 **Auditors:**
 
- - Chen Wen Kang
+- Chen Wen Kang
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -34,31 +34,30 @@ This review is a code review to identify potential vulnerabilities in the code. 
 
 The auditors make no warranties regarding the security of the code and do not warrant that the code is free from defects. The auditors do not represent nor imply to third parties that the code has been audited nor that the code is free from defects. By deploying or using the code, TODO_protocol_name and users of the contracts agree to use the code at their own risk.
 
+## Code Evaluation Matrix
 
-Code Evaluation Matrix
----
-
-| Category                 | Mark    | Description |
-| ------------------------ | ------- | ----------- |
-| Access Control           | Good | TODO |
-| Mathematics              | Good | TODO |
-| Complexity               | Good | TODO |
-| Libraries                | Average | TODO |
-| Decentralization         | Good | TODO |
-| Code stability           | Good    | TODO |
-| Documentation            | Average | TODO |
-| Monitoring               | Average | TODO |
-| Testing and verification | Low | More test recommended  |
+| Category                 | Mark    | Description           |
+| ------------------------ | ------- | --------------------- |
+| Access Control           | Good    | TODO                  |
+| Mathematics              | Good    | TODO                  |
+| Complexity               | Good    | TODO                  |
+| Libraries                | Average | TODO                  |
+| Decentralization         | Good    | TODO                  |
+| Code stability           | Good    | TODO                  |
+| Documentation            | Average | TODO                  |
+| Monitoring               | Average | TODO                  |
+| Testing and verification | Low     | More test recommended |
 
 ## Findings Explanation
 
 Findings are broken down into sections by their respective impact:
- - Critical, High, Medium, Low impact
-     - These are findings that range from attacks that may cause loss of funds, impact control/ownership of the contracts, or cause any unintended consequences/actions that are outside the scope of the requirements
- - Gas savings
-     - Findings that can improve the gas efficiency of the contracts
- - Informational
-     - Findings including recommendations and best practices
+
+- Critical, High, Medium, Low impact
+  - These are findings that range from attacks that may cause loss of funds, impact control/ownership of the contracts, or cause any unintended consequences/actions that are outside the scope of the requirements
+- Gas savings
+  - Findings that can improve the gas efficiency of the contracts
+- Informational
+  - Findings including recommendations and best practices
 
 ---
 
@@ -99,6 +98,22 @@ There are 2 possible solutions to this issue:
 1. Perform the hashing of `x` in the circuit.
 2. Add a check in the circuit to ensure that `x` is non-zero.
 
+### 2. Low - Missing bitcheck on Num2Bits on the utils.circom
+
+`utils.circom` has a `Num2Bits` function that converts a number to bits. The function does not perform a bitcheck on the input number.
+
+#### Technical Details
+
+There is a possibility that the number being passed is exceed the max value of bits and the result could be incorrect but since it didnt check then it would accpet any result in this case.
+
+#### Impact
+
+Low. The attacker will be able to exceed the current max bit size and just pass huge value and doesnt matter if its correct or inccorect.
+
+#### Recommendation
+
+1. Give a range check on the bit size when converted.
+
 ## Gas Savings Findings
 
 ### 1. Gas - TODO_Title
@@ -135,7 +150,6 @@ Informational.
 #### Recommendation
 
 Remove the public input `address` from the circuit.
-
 
 ### 2. Informational - Misleading Naming Convention for Utility Circuits
 
